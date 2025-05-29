@@ -1,1 +1,0 @@
-(Class-Diagram.jpeg)
