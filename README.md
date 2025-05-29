@@ -1,97 +1,69 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# PROBLEM STATEMENT
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Requirements Analysis - Create UML Diagrams
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Context
+Your task is to analyze the requirements for a laboratory automation system designed to integrate and automate various hardware devices within a research laboratory. Below is the description provided by the stakeholders:
 
-## Description
+### Description
+The laboratory conducts experiments using a variety of specialized devices such as pipettes, centrifuges, and robotic arms. The team wants a system that can connect these devices into a cohesive workflow. Scientists need to design and execute experiment protocols where multiple devices work together seamlessly. For example, a protocol might involve dispensing liquids using pipettes, running samples in a centrifuge, and then transferring them to another device using a robotic arm.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The system should help manage the devices by discovering them on the network and registering them. Users should be able to remotely monitor device status, configure settings, and control operations. Technicians need the ability to perform device maintenance and calibration via the system.
 
-## Project setup
+To ensure reliability, the system must handle errors robustly. If a device fails or a workflow step encounters an issue, users should be notified immediately, and logs should record the incident. Additionally, scientists need to access these logs to troubleshoot problems and ensure compliance with laboratory standards.
 
-```bash
-$ npm install
-```
+Another important aspect is data management. Devices generate significant amounts of data during experiments, which must be securely stored and made available for further analysis. The system should maintain an audit trail of all activities to meet regulatory requirements.
 
-## Compile and run the project
+The laboratory team also mentioned the need for various roles within the system. Scientists primarily design and execute experiments, technicians are responsible for maintenance, and administrators manage user access, roles, and system configurations.
 
-```bash
-# development
-$ npm run start
+Finally, the laboratory would like the system to generate reports on device usage, experiment outcomes, and error logs. These reports should help improve efficiency and track the laboratory's operations over time.
 
-# watch mode
-$ npm run start:dev
+### Instructions
+1. Analyze the above description and identify the key requirements.
+2. Create:
+   - A **Use Case Diagram** that captures the interactions between users, devices, and the system.
+   - A **Class Diagram** that models the structure of the system, including key components, attributes, and relationships.
+3. Prepare a brief explanation of your design, detailing how your diagrams address the requirements.
 
-# production mode
-$ npm run start:prod
-```
+### Hints
+- Focus on capturing the requirements of the system rather than designing the solution.
+- Remember, a use case diagram illustrates the relationships between actors and their interactions with the system. It does not depict the logic or internal workings of those interactions.
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## Coding Challenge - Implement a Circuit Breaker
 
-# e2e tests
-$ npm run test:e2e
+### Context
+In a laboratory automation system, reliable communication with hardware devices is critical. However, devices may occasionally become unavailable due to network issues, maintenance, or other reasons. To ensure system stability, you must implement a circuit breaker mechanism to protect the system from repeatedly attempting to communicate with malfunctioning devices.
 
-# test coverage
-$ npm run test:cov
-```
+### Description
+A circuit breaker monitors function calls for failures and prevents further calls when a failure threshold is reached. It has three states:
 
-## Deployment
+1. **Closed**: All calls are executed normally. If a certain number of consecutive failures occur, the circuit breaker transitions to the Open state.
+2. **Open**: The circuit breaker blocks all calls to the protected function, immediately throwing an error instead. After a specified timeout, it transitions to the Half-Open state.
+3. **Half-Open**: The circuit breaker allows a limited number of calls to test if the device has recovered. If a call succeeds, it transitions back to the Closed state. If a call fails, it transitions back to the Open state.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Instructions
+Implement a `CircuitBreaker` class to protect a function that communicates with a laboratory device. The protected function simulates device communication and may throw an error if the device is unavailable. You may use **pseudocode**, **TypeScript**, or **Python** for your solution.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Here is a pseudocode example of how the `CircuitBreaker` class will be used:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+```plaintext
+# Simulates device communication
+METHOD SimulateDeviceCommunication:
+    IF random error occurs THEN
+        RAISE Device not responding
+    ELSE
+        PRINT Device communication successful
+    ENDIF
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+# Simulates a client interacting with the CircuitBreaker
+METHOD client:
+    INIT CircuitBreaker WITH SimulateDeviceCommunication
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+    FOR a few times
+    BEGIN
+        CALL CircuitBreaker.fire
+        EXCEPTION
+            PRINT The exception message
+    ENDFOR
